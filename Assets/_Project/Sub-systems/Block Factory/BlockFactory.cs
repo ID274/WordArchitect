@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class BlockFactory : MonoBehaviour
 {
@@ -31,7 +32,6 @@ public class BlockFactory : MonoBehaviour
         Material particleMat = particleSystemRenderer.material;
         // Set the particle color to the same as the block
         SetParticleColor(particleMat, tempMat);
-
 
         return element;
     }
