@@ -53,3 +53,12 @@ MonoBehaviour:
       Unit Attribute\r\n\u2022 Validate Attribute\n\nBug Fixes\n\u2022 Resolved a
       problem with the Button attribute. It now also works in Scriptable Objects.\n\u2022
       Improved the saving mechanism for hierarchy settings."
+  - version: 1.25 Hotfix
+    year: 2025
+    month: 1
+    day: 9
+    details: "\u2022 Fixed a critical issue with saving certain object settings in
+      the hierarchy. Detailed explanation of the issue is available on Discord.\n\u2022
+      Object settings are no longer displayed in Play Mode. A message \"Play Mode
+      Active - Simplified View\" has been added to the hierarchy for clarity. The
+      reason for disabling settings in Play Mode is explained on Discord."

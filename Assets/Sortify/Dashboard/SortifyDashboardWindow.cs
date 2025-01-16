@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace Sortify
@@ -58,7 +59,7 @@ namespace Sortify
 
         private void InitializeModuleStatus()
         {
-            string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            string defines = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
             _isSortifyEnabled = defines.Contains("SORTIFY");
             _isSortifyAttributesEnabled = defines.Contains("SORTIFY_ATTRIBUTES");
             _isSortifyHighlightEnabled = defines.Contains("SORTIFY_HIGHLIGHT");
@@ -192,7 +193,7 @@ namespace Sortify
 
             foreach (var buildTargetGroup in targetGroups)
             {
-                string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup);
+                string defines = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup));
                 HashSet<string> defineSymbols = new HashSet<string>(defines.Split(';'));
 
                 if (_isSortifyEnabled)
@@ -223,7 +224,7 @@ namespace Sortify
                 }
 
                 string updatedDefines = string.Join(";", defineSymbols.Where(s => !string.IsNullOrEmpty(s)).ToArray());
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, updatedDefines);
+                PlayerSettings.SetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(buildTargetGroup), updatedDefines);
             }
         }
 

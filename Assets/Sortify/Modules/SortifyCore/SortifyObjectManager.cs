@@ -32,8 +32,8 @@ namespace Sortify
         static SortifyObjectManager()
         {
             EditorSceneManager.sceneSaving += OnSceneSaving;
-            EditorSceneManager.sceneClosing += OnSceneClosing;
             EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorSceneManager.sceneClosing += OnSceneClosing;
         }
 
         private static void OnSceneSaving(Scene scene, string path)
@@ -41,14 +41,15 @@ namespace Sortify
             SaveObjectsToFile();
         }
 
-        private static void OnSceneClosing(Scene scene, bool removingScene)
-        {
-            SaveObjectsToFile();
-        }
-
         private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
         {
             LoadObjectsDataFromFile();
+            EditorApplication.RepaintHierarchyWindow();
+        }
+
+        private static void OnSceneClosing(Scene scene, bool removingScene)
+        {
+            _dataLoaded = false;
         }
 
         #region Colors
