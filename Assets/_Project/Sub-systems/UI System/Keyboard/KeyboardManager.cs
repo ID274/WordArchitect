@@ -49,7 +49,7 @@ public class KeyboardManager : MonoBehaviour
         keyboard.SetActive(true);
         keyboardActive = true;
 
-        inputField = UIReferenceManager.Instance.customInputField;
+        inputField = UIReferenceManager.Instance.customInputField as CustomInputField;
         if (inputField == null)
         {
             Debug.LogError("Input field not found! Destroying keyboard.");

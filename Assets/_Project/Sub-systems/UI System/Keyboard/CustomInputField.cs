@@ -1,24 +1,22 @@
 using TMPro;
 using UnityEngine;
 
-public class CustomInputField : MonoBehaviour
+public class CustomInputField : BaseUIObject, IUIElement
 {
     private TextMeshProUGUI text;
     private string currentInput;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         text = GetComponentInChildren<TextMeshProUGUI>();
         if (text == null)
         {
-            Debug.LogError("TextMeshProUGUI component not found!");
+            Debug.LogError("TextMeshProUGUI component not found!", this.gameObject);
+            return;
         }
         currentInput = "";
-    }
-
-    private void Start()
-    {
-        UIReferenceManager.Instance.ReferenceMe(gameObject);
     }
 
     public void AddCharacter(char character)
