@@ -20,6 +20,6 @@ public class BaseUIObject : MonoBehaviour, IUIElement
 
     public UIType GetUIType()
     {
-        return UIType.customInputField;
+        return UIType.invalid; // here we tell the UI reference manager what type of UI it is, so it knows where to assign it
     }
 }
