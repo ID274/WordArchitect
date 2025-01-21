@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUIObject : MonoBehaviour, IUIElement
+public class BaseUIObject : MonoBehaviour
 {
     // base UI class because making SOLID makes my brain LIQUID
 
-    [SerializeField] private UIType uiType;
+    [SerializeField] protected UIType uiType;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         InitializeThis();
     }
@@ -20,6 +20,6 @@ public class BaseUIObject : MonoBehaviour, IUIElement
 
     public UIType GetUIType()
     {
-        return UIType.invalid; // here we tell the UI reference manager what type of UI it is, so it knows where to assign it
+        return uiType; ; // here we tell the UI reference manager what type of UI it is, so it knows where to assign it
     }
 }

@@ -7,8 +7,8 @@ public class UIReferenceManager : MonoBehaviour
     public static UIReferenceManager Instance { get; private set; }
 
     [Header("UI References")]
-    public IUIElement keyboard;
-    public IUIElement customInputField;
+    public BaseUIObject keyboard;
+    public BaseUIObject customInputField;
 
     private void Awake()
     {
@@ -23,11 +23,11 @@ public class UIReferenceManager : MonoBehaviour
         }
     }
 
-    public void AssignMe(IUIElement UIElement)
+    public void AssignMe(BaseUIObject UIElement)
     {
         // Here we can assign a UI element to its corresponding reference in the UIReferenceManager, allowing us to have a central place to access all UI elements.
         // The UI Reference Manager does not care what the actual UI element is, as long as it implements the IUIElement interface. It then uses that interface to
-        // determine what type of UI element it is, and assigns it to the appropriate reference.
+        // determine what type of UI element it is, and assigns it to the appropriate reference. It doesn't care what is put into it, 
 
         switch (UIElement.GetUIType())
         {
@@ -36,12 +36,20 @@ public class UIReferenceManager : MonoBehaviour
                 {
                     Debug.LogWarning("Keyboard reference already assigned. Overwriting reference.");
                 }
+                else
+                {
+                    Debug.Log("Keyboard has been assigned.");
+                }
                 keyboard = UIElement;
                 break;
             case UIType.customInputField:
                 if (customInputField != null)
                 {
                     Debug.LogWarning("CustomInputField reference already assigned. Overwriting reference.");
+                }
+                else
+                {
+                    Debug.Log("Custom Input Field has been assigned.");
                 }
                 customInputField = UIElement;
                 break;

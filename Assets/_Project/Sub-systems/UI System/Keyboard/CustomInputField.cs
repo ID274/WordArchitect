@@ -1,15 +1,13 @@
 using TMPro;
 using UnityEngine;
 
-public class CustomInputField : BaseUIObject, IUIElement
+public class CustomInputField : BaseUIObject
 {
     private TextMeshProUGUI text;
     private string currentInput;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-
         text = GetComponentInChildren<TextMeshProUGUI>();
         if (text == null)
         {
@@ -18,6 +16,13 @@ public class CustomInputField : BaseUIObject, IUIElement
         }
         currentInput = "";
     }
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    // SHOULD MAYBE DECOUPLE THE BELOW CODE INTO A SEPARATE INPUT FIELD MANAGER TO FOLLOW SRP
 
     public void AddCharacter(char character)
     {
