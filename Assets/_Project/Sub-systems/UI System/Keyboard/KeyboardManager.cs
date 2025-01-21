@@ -90,11 +90,11 @@ public class KeyboardManager : MonoBehaviour
         }
     }
 
-    public void DisableKeyboard()
-    {
-        keyboardActive = false;
-        keyboard.SetActive(false);
-    }
+    //public void DisableKeyboard()
+    //{
+    //    keyboardActive = false;
+    //    keyboard.SetActive(false);
+    //}
 
     public void EnableKeyboard()
     {
