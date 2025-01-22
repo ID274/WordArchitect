@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class KeyboardObject : BaseUIObject
 {
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
+
 }

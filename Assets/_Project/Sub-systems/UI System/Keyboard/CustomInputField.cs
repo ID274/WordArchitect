@@ -6,8 +6,9 @@ public class CustomInputField : BaseUIObject
     private TextMeshProUGUI text;
     private string currentInput;
 
-    protected void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         text = GetComponentInChildren<TextMeshProUGUI>();
         if (text == null)
         {
@@ -15,11 +16,6 @@ public class CustomInputField : BaseUIObject
             return;
         }
         currentInput = "";
-    }
-
-    protected override void Start()
-    {
-        base.Start();
     }
 
     // SHOULD MAYBE DECOUPLE THE BELOW CODE INTO A SEPARATE INPUT FIELD MANAGER TO FOLLOW SRP

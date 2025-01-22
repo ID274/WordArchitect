@@ -8,7 +8,7 @@ public class BaseUIObject : MonoBehaviour
 
     [SerializeField] protected UIType uiType;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         InitializeThis();
     }

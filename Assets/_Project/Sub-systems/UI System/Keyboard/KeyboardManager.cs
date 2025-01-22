@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,6 +50,12 @@ public class KeyboardManager : MonoBehaviour
         keyboard.SetActive(true);
         keyboardActive = true;
 
+        StartCoroutine(AssignInputFieldDelay(0.1f));
+    }
+
+    private IEnumerator AssignInputFieldDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         inputField = UIReferenceManager.Instance.customInputField as CustomInputField;
         if (inputField == null)
         {
@@ -56,6 +63,7 @@ public class KeyboardManager : MonoBehaviour
             Destroy(keyboard);
         }
     }
+
     public void OnBackspacePressed()
     {
         if (keyboard != null && keyboardActive == true)
