@@ -25,9 +25,9 @@ public class UIReferenceManager : MonoBehaviour
 
     public void AssignMe(BaseUIObject UIElement)
     {
-        // Here we can assign a UI element to its corresponding reference in the UIReferenceManager, allowing us to have a central place to access all UI elements.
-        // The UI Reference Manager does not care what the actual UI element is, as long as it implements the IUIElement interface. It then uses that interface to
-        // determine what type of UI element it is, and assigns it to the appropriate reference. It doesn't care what is put into it, 
+        // Here we can assign a UI element to its corresponding reference, allowing us to have a central place to access all UI elements.
+        // The UI Reference Manager does not care what the actual UI element is, as long as it is of type BaseUIObject. It can then use the UIType enumerator
+        // to determine which specific UI object it is so it can be assigned to its rightful place. This demonstrates use of Liskov's Substitution Principle.
 
         switch (UIElement.GetUIType())
         {
@@ -46,12 +46,13 @@ public class UIReferenceManager : MonoBehaviour
                 if (customInputField != null)
                 {
                     Debug.LogWarning("CustomInputField reference already assigned. Overwriting reference.");
+                    customInputField = UIElement;
                 }
                 else
                 {
+                    customInputField = UIElement;
                     Debug.Log("Custom Input Field has been assigned.");
                 }
-                customInputField = UIElement;
                 break;
             default:
                 Debug.LogError("Invalid UIType");

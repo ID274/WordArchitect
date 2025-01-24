@@ -8,14 +8,22 @@ public class BaseUIObject : MonoBehaviour
 
     [SerializeField] protected UIType uiType;
 
+    private float delay = 0.1f;
+
     protected virtual void Awake()
     {
-        InitializeThis();
+        StartCoroutine(DelayInitialization(delay));
     }
 
     protected void InitializeThis()
     {
         UIReferenceManager.Instance.AssignMe(this);
+    }
+
+    private IEnumerator DelayInitialization(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        InitializeThis();
     }
 
     public UIType GetUIType()
