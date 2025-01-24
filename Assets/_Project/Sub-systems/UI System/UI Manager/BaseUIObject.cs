@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUIObject : MonoBehaviour
+public abstract class BaseUIObject : MonoBehaviour
 {
     // base UI class because making SOLID makes my brain LIQUID
 
