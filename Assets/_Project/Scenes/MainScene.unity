@@ -6239,6 +6239,7 @@ GameObject:
   - component: {fileID: 1533405143}
   - component: {fileID: 1533405142}
   - component: {fileID: 1533405144}
+  - component: {fileID: 1533405145}
   m_Layer: 0
   m_Name: WordSearchManager
   m_TagString: Untagged
@@ -6292,6 +6293,18 @@ MonoBehaviour:
   - {r: 0.7058824, g: 0.17144412, b: 0.12941177, a: 1}
   - {r: 0.44676346, g: 0.12941177, b: 0.7058824, a: 1}
   - {r: 0.12941177, g: 0.27194306, b: 0.7058824, a: 1}
+--- !u!114 &1533405145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533405141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9442e32e87e52bb4da3456d044a6cba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1536585776
 PrefabInstance:
   m_ObjectHideFlags: 0

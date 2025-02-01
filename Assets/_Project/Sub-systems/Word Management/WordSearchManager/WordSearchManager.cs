@@ -15,8 +15,6 @@ public class WordSearchManager : MonoBehaviour
 
     private void Awake()
     {
-        blockSpawner = FindAnyObjectByType<BlockSpawner>();
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -25,6 +23,8 @@ public class WordSearchManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        blockSpawner = FindAnyObjectByType<BlockSpawner>();
 
         wordTrie = new Trie();
         colourChanger = GetComponent<ColourChanger>();

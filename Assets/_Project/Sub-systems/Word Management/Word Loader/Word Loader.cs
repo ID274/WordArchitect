@@ -56,7 +56,7 @@ public class WordLoader : MonoBehaviour
         }
 
         Debug.Log("Number of words added to dictionary: " + count);
-
+        ThemeHolder.Instance.SetTheme(Path.GetFileNameWithoutExtension(textFilePath));
         WordSearchManager.Instance.PopulateTrie(wordsTemp.ToArray());
     }
 
@@ -91,9 +91,8 @@ public class WordLoader : MonoBehaviour
         {
             Debug.LogError("File does not exist: " + textFilePath);
         }
-        Debug.Log("Hello?? 1");
+        ThemeHolder.Instance.SetTheme(Path.GetFileNameWithoutExtension(textFilePath));
         WordSearchManager.Instance.PopulateTrie(wordsTemp.ToArray());
-        Debug.Log("Hello?? 2");
     }
 
     public void LoadWordListByIndex(int index)
