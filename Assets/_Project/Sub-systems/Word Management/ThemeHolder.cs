@@ -25,4 +25,9 @@ public class ThemeHolder : MonoBehaviour
         this.themeName = themeName;
         Debug.Log("Theme set: " + themeName);
     }
+
+    public string ReturnTheme()
+    {
+        return themeName;
+    }
 }
