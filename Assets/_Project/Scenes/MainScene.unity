@@ -3836,11 +3836,9 @@ MonoBehaviour:
   wordsToDisplay: 10
   timePerWord: 0.3
   themeNames:
-  - Fruit
-  - Vegetables
-  - Countries
-  - Cities
-  - Superheroes
+  - Test1
+  - Test2
+  - Test3
 --- !u!1 &877484797
 GameObject:
   m_ObjectHideFlags: 0
