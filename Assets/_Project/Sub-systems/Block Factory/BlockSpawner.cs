@@ -26,6 +26,7 @@ public class BlockSpawner : MonoBehaviour
         {
             (GameObject, char, Vector3, Color) blockData = blocksToSpawn.Dequeue();
             SpawnBlock(blockData.Item1, blockData.Item2, blockData.Item4);
+            ScoreManager.Instance.IncrementScore();
         }
     }
 
