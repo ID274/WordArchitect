@@ -6,9 +6,11 @@ public class WordLoader : MonoBehaviour
 {
     private string[] textFiles;
 
+    private string folderPath;
+
     private void Awake()
     {
-        string folderPath = Application.streamingAssetsPath + "/WordLists";
+        folderPath = Application.streamingAssetsPath + "/WordLists";
         int textFileCount = CountTextFiles(folderPath);
         Debug.Log("Number of text files: " + textFileCount);
     }
@@ -25,6 +27,26 @@ public class WordLoader : MonoBehaviour
             Debug.LogError("Folder does not exist: " + folderPath);
             return 0;
         }
+    }
+
+    public string[] GetThemeNames()
+    {
+        // find every file in the directory, and return the names of all files as a string array
+
+        if (textFiles == null || textFiles.Length == 0)
+        {
+            Debug.LogWarning("No text files found in the directory.");
+            return new string[0];
+        }
+
+        List<string> themeNames = new List<string>();
+        foreach (string filePath in textFiles)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            themeNames.Add(fileName);
+        }
+
+        return themeNames.ToArray();
     }
 
     private void LoadWordList(int index)

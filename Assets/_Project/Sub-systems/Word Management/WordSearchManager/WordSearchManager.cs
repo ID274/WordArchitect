@@ -12,6 +12,7 @@ public class WordSearchManager : MonoBehaviour
     private List<string> stringsToType = new List<string>();
 
     private BlockSpawner blockSpawner;
+    private WordLoader wordLoader;
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class WordSearchManager : MonoBehaviour
     private void Start()
     {
         // Load random word list
-        WordLoader wordLoader = gameObject.AddComponent(typeof(WordLoader)) as WordLoader;
+        wordLoader = GetComponent<WordLoader>();
         wordLoader.LoadRandomWordList();
     }
 

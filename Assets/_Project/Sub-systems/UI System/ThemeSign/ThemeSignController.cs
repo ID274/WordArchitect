@@ -29,7 +29,28 @@ public class ThemeSignController : BaseUIObject
 
     public void Start()
     {
+        PopulateThemeList();
+
+        if (themeNames.Length <= 1)
+        {
+            wordsToDisplay = 1;
+        }
+
         StartCoroutine(DisplayThemeSign());
+    }
+
+    private void PopulateThemeList()
+    {
+        WordLoader wordLoader = FindAnyObjectByType<WordLoader>();
+
+        if (wordLoader != null)
+        {
+            themeNames = wordLoader.GetThemeNames();
+        }
+        else
+        {
+            Debug.LogWarning("WordLoader not found. Proceeding with default theme list.", this);
+        }
     }
 
     private IEnumerator DisplayThemeSign()
