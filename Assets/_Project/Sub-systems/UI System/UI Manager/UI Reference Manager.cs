@@ -9,6 +9,7 @@ public class UIReferenceManager : MonoBehaviour
     [Header("UI References")]
     public BaseUIObject keyboard;
     public BaseUIObject customInputField;
+    public BaseUIObject themeSign;
 
     private void Awake()
     {
@@ -52,6 +53,18 @@ public class UIReferenceManager : MonoBehaviour
                 {
                     customInputField = UIElement;
                     Debug.Log("Custom Input Field has been assigned.");
+                }
+                break;
+            case UIType.themeSign:
+                if (themeSign != null)
+                {
+                    Debug.LogWarning("Theme Sign reference already assigned. Overwriting reference.");
+                    themeSign = UIElement;
+                }
+                else
+                {
+                    themeSign = UIElement;
+                    Debug.Log("Theme Sign has been assigned.");
                 }
                 break;
             default:
