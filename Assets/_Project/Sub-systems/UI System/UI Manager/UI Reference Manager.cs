@@ -5,11 +5,7 @@ using UnityEngine;
 public class UIReferenceManager : MonoBehaviour
 {
     public static UIReferenceManager Instance { get; private set; }
-
-    [Header("UI References")]
-    public BaseUIObject keyboard;
-    public BaseUIObject customInputField;
-    public BaseUIObject themeSign;
+    public Dictionary<UIType, BaseUIObject> uiElements = new Dictionary<UIType, BaseUIObject>();
 
     private void Awake()
     {
@@ -32,46 +28,27 @@ public class UIReferenceManager : MonoBehaviour
 
         // Current approach unfortunately breaks O/P Principle
 
-        switch (UIElement.GetUIType())
+        if (uiElements.TryGetValue(UIElement.GetUIType(), out BaseUIObject uiObject))
         {
-            case UIType.keyboard:
-                if (keyboard != null)
-                {
-                    Debug.LogWarning("Keyboard reference already assigned. Overwriting reference.");
-                }
-                else
-                {
-                    Debug.Log("Keyboard has been assigned.");
-                }
-                keyboard = UIElement;
-                break;
-            case UIType.customInputField:
-                if (customInputField != null)
-                {
-                    Debug.LogWarning("CustomInputField reference already assigned. Overwriting reference.");
-                    customInputField = UIElement;
-                }
-                else
-                {
-                    customInputField = UIElement;
-                    Debug.Log("Custom Input Field has been assigned.");
-                }
-                break;
-            case UIType.themeSign:
-                if (themeSign != null)
-                {
-                    Debug.LogWarning("Theme Sign reference already assigned. Overwriting reference.");
-                    themeSign = UIElement;
-                }
-                else
-                {
-                    themeSign = UIElement;
-                    Debug.Log("Theme Sign has been assigned.");
-                }
-                break;
-            default:
-                Debug.LogError("Invalid UIType");
-                break;
+            Debug.LogWarning($"{UIElement.gameObject.name} reference already assigned. Overwriting reference.");
+            uiElements.Add(UIElement.GetUIType(), uiObject);
+        }
+        else
+        {
+            Debug.Log($"{UIElement.gameObject.name} is being assigned.");
+            uiElements.Add(UIElement.GetUIType(), uiObject);
+        }
+    }
+
+    public GameObject GetObjectInDictionary(UIType uiType)
+    {
+        if (uiElements.TryGetValue(uiType, out BaseUIObject uiObject)) 
+        {
+            return uiObject.gameObject;
+        }
+        else
+        {
+            return null;
         }
     }
 }

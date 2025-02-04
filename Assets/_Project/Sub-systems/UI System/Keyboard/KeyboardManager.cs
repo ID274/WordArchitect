@@ -56,7 +56,7 @@ public class KeyboardManager : MonoBehaviour
     private IEnumerator AssignInputFieldDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        inputField = UIReferenceManager.Instance.customInputField as CustomInputField;
+        inputField = UIReferenceManager.Instance.GetObjectInDictionary(UIType.customInputField).GetComponent<CustomInputField>();
         if (inputField == null)
         {
             Debug.LogError("Input field not found! Destroying keyboard.");
