@@ -82,7 +82,7 @@ public class ThemeSignController : BaseUIObject
         yield return new WaitForSeconds(timePerWord);
         themeSignText.text = ThemeHolder.Instance.ReturnTheme();
         yield return new WaitForSeconds(timePerWord);
-        themeSignAnim.SetTrigger("themeDone");
+        themeSignAnim.SetTrigger(themeSignTrigger);
         ScoreManager.Instance.ActivateScoreCounter();
     }
 }
