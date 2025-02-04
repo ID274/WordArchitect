@@ -30,6 +30,8 @@ public class UIReferenceManager : MonoBehaviour
         // The UI Reference Manager does not care what the actual UI element is, as long as it is of type BaseUIObject. It can then use the UIType enumerator
         // to determine which specific UI object it is so it can be assigned to its rightful place. This demonstrates use of Liskov's Substitution Principle.
 
+        // Current approach unfortunately breaks O/P Principle
+
         switch (UIElement.GetUIType())
         {
             case UIType.keyboard:

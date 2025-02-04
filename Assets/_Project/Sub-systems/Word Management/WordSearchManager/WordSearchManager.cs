@@ -34,8 +34,15 @@ public class WordSearchManager : MonoBehaviour
     private void Start()
     {
         // Load random word list
-        wordLoader = GetComponent<WordLoader>();
-        wordLoader.LoadRandomWordList();
+        if (TryGetComponent(out WordLoader wLoader))
+        {
+            wordLoader = wLoader;
+            wordLoader.LoadRandomWordList();
+        }
+        else
+        {
+            Debug.LogError("No WordLoader found.", this);
+        }
     }
 
     public void PopulateTrie(string[] wordsArray)
