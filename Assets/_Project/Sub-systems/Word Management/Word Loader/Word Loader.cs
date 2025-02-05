@@ -1,37 +1,38 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class WordLoader : MonoBehaviour
 {
-    private string[] textFiles;
+    private TextAsset[] textFiles;
 
     private string folderPath;
 
     private void Awake()
     {
-        folderPath = Application.streamingAssetsPath + "/WordLists";
+        folderPath = "WordLists"; // The folder inside Resources
         int textFileCount = CountTextFiles(folderPath);
         Debug.Log("Number of text files: " + textFileCount);
     }
 
     private int CountTextFiles(string folderPath)
     {
-        if (Directory.Exists(folderPath))
+        // Load all TextAssets from the specified folder inside Resources
+        textFiles = Resources.LoadAll<TextAsset>(folderPath);
+
+        if (textFiles == null || textFiles.Length == 0)
         {
-            textFiles = Directory.GetFiles(folderPath, "*.txt");
-            return textFiles.Length;
+            Debug.LogError("No text files found in Resources/" + folderPath);
+            return 0;
         }
         else
         {
-            Debug.LogError("Folder does not exist: " + folderPath);
-            return 0;
+            return textFiles.Length;
         }
     }
 
     public string[] GetThemeNames()
     {
-        // find every file in the directory, and return the names of all files as a string array
+        // Find every file in the directory and return the names of all files as a string array
 
         if (textFiles == null || textFiles.Length == 0)
         {
@@ -40,9 +41,9 @@ public class WordLoader : MonoBehaviour
         }
 
         List<string> themeNames = new List<string>();
-        foreach (string filePath in textFiles)
+        foreach (var file in textFiles)
         {
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            string fileName = file.name;
             themeNames.Add(fileName);
         }
 
@@ -59,8 +60,8 @@ public class WordLoader : MonoBehaviour
             return;
         }
 
-        string textFilePath = textFiles[index];
-        string[] words = File.ReadAllLines(textFilePath);
+        TextAsset textFile = textFiles[index];
+        string[] words = textFile.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
         Debug.Log("Number of words in text file: " + words.Length);
 
         List<string> wordsTemp = new List<string>();
@@ -68,67 +69,29 @@ public class WordLoader : MonoBehaviour
         int count = 0;
         foreach (string word in words)
         {
-            if (!string.IsNullOrWhiteSpace(word))
+            string trimmedWord = word.Trim();
+            if (!string.IsNullOrWhiteSpace(trimmedWord))
             {
-                Debug.Log(word);
-                WordHashSet.Instance.AddWord(word);
+                Debug.Log(trimmedWord);
+                WordHashSet.Instance.AddWord(trimmedWord);
                 count++;
-                wordsTemp.Add(word);
+                wordsTemp.Add(trimmedWord);
             }
         }
 
         Debug.Log("Number of words added to dictionary: " + count);
-        ThemeHolder.Instance.SetTheme(Path.GetFileNameWithoutExtension(textFilePath));
+        ThemeHolder.Instance.SetTheme(textFile.name);
         WordSearchManager.Instance.PopulateTrie(wordsTemp.ToArray());
-    }
-
-    private void LoadWordList(string fileName)
-    {
-        Debug.Log("Loading Word List by filename");
-
-        string folderPath = Application.streamingAssetsPath + "/WordLists";
-        string textFilePath = folderPath + "/" + fileName + ".txt";
-
-        List<string> wordsTemp = new List<string>();
-
-        if (File.Exists(textFilePath))
-        {
-            string[] words = File.ReadAllLines(textFilePath);
-            Debug.Log("Number of words in text file: " + words.Length);
-
-            int count = 0;
-            foreach (string word in words)
-            {
-                if (!string.IsNullOrWhiteSpace(word))
-                {
-                    Debug.Log(word);
-                    WordHashSet.Instance.AddWord(word);
-                    count++;
-                }
-            }
-
-            Debug.Log("Number of words added to dictionary: " + count);
-        }
-        else
-        {
-            Debug.LogError("File does not exist: " + textFilePath);
-        }
-        ThemeHolder.Instance.SetTheme(Path.GetFileNameWithoutExtension(textFilePath));
-        WordSearchManager.Instance.PopulateTrie(wordsTemp.ToArray());
-    }
-
-    public void LoadWordListByIndex(int index)
-    {
-        LoadWordList(index);
-    }
-
-    public void LoadWordListByName(string fileName)
-    {
-        LoadWordList(fileName);
     }
 
     public void LoadRandomWordList()
     {
+        if (textFiles == null || textFiles.Length == 0)
+        {
+            Debug.LogError("No word lists available to load.");
+            return;
+        }
+
         int index = Random.Range(0, textFiles.Length);
         LoadWordList(index);
     }
