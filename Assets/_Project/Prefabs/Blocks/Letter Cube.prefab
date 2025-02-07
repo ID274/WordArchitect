@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4555113058364673814}
   - component: {fileID: 4362322230258031116}
   - component: {fileID: 5629010935137382863}
+  - component: {fileID: 4881005430421063284}
   m_Layer: 0
   m_Name: Letter Cube
   m_TagString: Untagged
@@ -131,6 +132,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4881005430421063284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545684284372304120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89907b68a86ef744485f54b6d15d8c9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 0
+  soundData: {fileID: 11400000, guid: 647f372ccbcdbff4ca5a5abaa21d8e52, type: 2}
 --- !u!1 &3852946014152747322
 GameObject:
   m_ObjectHideFlags: 0
