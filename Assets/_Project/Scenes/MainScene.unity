@@ -9936,8 +9936,8 @@ MonoBehaviour:
   city: {fileID: 466719214}
   sky: {fileID: 1707090363}
   disableGround: 0
-  disableCity: 0
-  disableSky: 0
+  disableCity: 1
+  disableSky: 1
   disableGroundThreshhold: 30
   disableCityThreshhold: 30
   disableSkyThreshhold: 100

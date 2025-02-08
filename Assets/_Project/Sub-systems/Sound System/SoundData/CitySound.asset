@@ -16,7 +16,7 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: ec1c789982ed0374bb8aa09cd8a48a9a, type: 3}
   audioMixerGroup: {fileID: -5159601452150935524, guid: c23ffcadcaa9ee74790c3573f20c6d4b,
     type: 2}
-  volume: 1
+  volume: 0.2
   pitch: 1
   loop: 1
   randomPitch: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   maxPitch: 1.1
   spatialBlend: 1
   minDistance: 1
-  maxDistance: 500
-  rolloffMode: 0
+  maxDistance: 50
+  rolloffMode: 2
   fade: 1
   fadeTime: 3
