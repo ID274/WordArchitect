@@ -4,8 +4,8 @@ using UnityEngine;
 public class SoundFadeHandler : MonoBehaviour
 {
     private AudioSource audioSource;
-    private float fadeTime;
-    private float maxVolume;
+    public float fadeTime { get; private set; }
+    public float maxVolume { get; private set; }
     private float clipLength;
 
     private Coroutine fadeCoroutine;
@@ -61,6 +61,11 @@ public class SoundFadeHandler : MonoBehaviour
             yield return null;
         }
         audioSource.volume = 0f;
+
+        if (audioSource.loop)
+        {
+            fadeCoroutine = StartCoroutine(FadeCoroutine(fadeTime));
+        }
     }
 
     private void OnDestroy()

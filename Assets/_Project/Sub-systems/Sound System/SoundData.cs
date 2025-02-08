@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 [CreateAssetMenu(fileName = "NewSoundData", menuName = "Sound System/Sound Data", order = 1)]
 public class SoundData : ScriptableObject
 {
-    [Range(256, 0)]public int priority = 128;
+    [Tooltip("0 is highest priority, 256 is lowest")][Range(0, 256)]public int priority = 128;
 
     [Header("General Settings")]
     public AudioClip clip;

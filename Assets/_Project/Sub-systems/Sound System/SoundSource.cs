@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -14,6 +11,8 @@ public class SoundSource : MonoBehaviour
 
     private bool applicationIsQuitting = false;
     private bool isReturnedToPool = false;
+
+    private AudioListener audioListener;
 
     private void OnApplicationQuit()
     {
@@ -28,8 +27,34 @@ public class SoundSource : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!audioSource.isPlaying && !audioSource.loop)
+        {
+            ReturnToPoolInstant();
+        }
+
+        if (audioListener != null)
+        {
+            if (audioSource.maxDistance < Vector3.Distance(transform.position, audioListener.gameObject.transform.position))
+            {
+                ReturnToPoolInstant();
+            }
+        }
+        else
+        {
+            audioListener = FindAnyObjectByType<AudioListener>();
+        }
+
+        if (!transform.parent.gameObject.activeSelf)
+        {
+            transform.SetParent(null);
+        }
+    }
+
     private void OnEnable()
     {
+        isReturnedToPool = false;
         if (gameObject.transform.parent.TryGetComponent(out SoundCaller soundCaller))
         {
             SetUpAndPlay(soundCaller.soundData);
@@ -81,6 +106,7 @@ public class SoundSource : MonoBehaviour
         audioSource.minDistance = soundData.minDistance;
         audioSource.maxDistance = soundData.maxDistance;
         audioSource.rolloffMode = soundData.rolloffMode;
+        audioSource.priority = soundData.priority;
 
         if (soundData.randomPitch)
         {
@@ -114,8 +140,7 @@ public class SoundSource : MonoBehaviour
         }
         else
         {
-            // unimplemented functionality, so for now it just never returns to pool
-            Debug.LogWarning("Looping sound is not yet implemented properly");
+            yield break;
         }
     }
 

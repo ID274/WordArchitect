@@ -50,35 +50,24 @@ public class SFXPool : MonoBehaviour
 
     public void AddToPool(GameObject returningObject)
     {
-        if (expandable)
+        if (currentPoolSize < trueMaxSize && expandable)
         {
-            if (currentPoolSize < trueMaxSize)
-            {
-                SanitiseObject(returningObject);
-                sfxPool.Enqueue(returningObject);
-                currentPoolSize++;
-                Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
-            }
-            else
-            {
-                Destroy(returningObject);
-                Debug.LogWarning($"Pool is full ({currentPoolSize}/{trueMaxSize}), object destroyed");
-            }
+            SanitiseObject(returningObject);
+            sfxPool.Enqueue(returningObject);
+            currentPoolSize++;
+            Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
+        }
+        else if (currentPoolSize < poolSize && !expandable)
+        {
+            SanitiseObject(returningObject);
+            sfxPool.Enqueue(returningObject);
+            currentPoolSize++;
+            Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{poolSize}");
         }
         else
         {
-            if (currentPoolSize < poolSize)
-            {
-                SanitiseObject(returningObject);
-                sfxPool.Enqueue(returningObject);
-                currentPoolSize++;
-                Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
-            }
-            else
-            {
-                Destroy(returningObject);
-                Debug.LogWarning($"Pool is full ({currentPoolSize}/{poolSize}), object destroyed");
-            }
+            Destroy(returningObject);
+            Debug.LogWarning($"Pool is full ({currentPoolSize}/{trueMaxSize}), object destroyed");
         }
     }
 

@@ -27,4 +27,4 @@ MonoBehaviour:
   maxDistance: 500
   rolloffMode: 0
   fade: 1
-  fadeTime: 0.5
+  fadeTime: 3
