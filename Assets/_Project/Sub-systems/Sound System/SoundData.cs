@@ -27,4 +27,8 @@ public class SoundData : ScriptableObject
     public float minDistance = 1;
     public float maxDistance = 500;
     public AudioRolloffMode rolloffMode = AudioRolloffMode.Logarithmic;
+
+    [Header("Fade Settings")]
+    public bool fade;
+    public float fadeTime = 0;
 }

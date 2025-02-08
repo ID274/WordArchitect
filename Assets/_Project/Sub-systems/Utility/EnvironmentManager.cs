@@ -9,6 +9,9 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private GameObject sky;
 
     [Header("Settings")]
+    [SerializeField] private bool disableGround;
+    [SerializeField] private bool disableCity;
+    [SerializeField] private bool disableSky;
     [SerializeField] private int disableGroundThreshhold;
     [SerializeField] private int disableCityThreshhold;
     [SerializeField] private int disableSkyThreshhold;
@@ -24,29 +27,38 @@ public class EnvironmentManager : MonoBehaviour
 
     private void CheckForDisables()
     {
-        if (groundDisabled == false && ScoreManager.Instance.score >= disableGroundThreshhold)
+        if (disableGround)
         {
-            groundDisabled = true;
-            groundPlane.SetActive(false);
-            Debug.Log("Ground disabled", this);
-        }
-        if (cityDisabled == false && ScoreManager.Instance.score >= disableCityThreshhold)
-        {
-            cityDisabled = true;
-            city.SetActive(false);
-            Debug.Log("City disabled", this);
-        }
-        if (skyDisabled == false && ScoreManager.Instance.score >= disableSkyThreshhold)
-        {
-            skyDisabled = true;
-            GameObject[] children = new GameObject[sky.transform.childCount];
-
-            foreach (Transform child in sky.transform)
+            if (groundDisabled == false && ScoreManager.Instance.score >= disableGroundThreshhold)
             {
-                child.gameObject.SetActive(false);
+                groundDisabled = true;
+                groundPlane.SetActive(false);
+                Debug.Log("Ground disabled", this);
             }
+        }
+        if (disableCity)
+        {
+            if (cityDisabled == false && ScoreManager.Instance.score >= disableCityThreshhold)
+            {
+                cityDisabled = true;
+                city.SetActive(false);
+                Debug.Log("City disabled", this);
+            }
+        }
+        if (disableSky)
+        {
+            if (skyDisabled == false && ScoreManager.Instance.score >= disableSkyThreshhold)
+            {
+                skyDisabled = true;
+                GameObject[] children = new GameObject[sky.transform.childCount];
 
-            Debug.Log("Sky disabled", this);
+                foreach (Transform child in sky.transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+
+                Debug.Log("Sky disabled", this);
+            }
         }
     }
 }

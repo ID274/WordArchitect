@@ -48,6 +48,12 @@ public class SFXManager : MonoBehaviour
         {
             PlaySoundFromPool();
         }
+
+        if (soundRequestList.Count > 3)
+        {
+            Debug.Log($"Sound Request List: {soundRequestList.Count}, expanding pool by 1.");
+            SFXPool.Instance.ExpandPool();
+        }
     }
 
     public void AddSoundToQueue(GameObject objectRequesting, SoundData soundData, Vector3 position)
@@ -89,7 +95,6 @@ public class SFXManager : MonoBehaviour
             soundObject.transform.position = soundRequest.position;
             soundObject.transform.parent = soundRequest.objectRequesting.transform;
             soundObject.SetActive(true);
-
         }
     }
 

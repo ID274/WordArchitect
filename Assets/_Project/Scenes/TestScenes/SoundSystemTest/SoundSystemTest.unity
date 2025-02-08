@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSoundsQueued: 20
   destroyOnLoad: 1
-  timeBetweenSorts: 2
+  timeBetweenSorts: 1
 --- !u!4 &536265048
 Transform:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   blockPrefab: {fileID: 5201615257720157355, guid: bd7ddb2916f47c54b9cce17a813aea78,
     type: 3}
   blocksSpawned: 0
-  timeBetweenSpawns: 0.1
+  timeBetweenSpawns: 0.01
 --- !u!4 &942116400
 Transform:
   m_ObjectHideFlags: 0

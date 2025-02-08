@@ -43,7 +43,8 @@ public class SFXPool : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            AddToPool(Instantiate(sfxPrefab, transform));
+            GameObject newSFX = Instantiate(sfxPrefab, transform);
+            AddToPool(newSFX);
         }
     }
 
@@ -51,30 +52,32 @@ public class SFXPool : MonoBehaviour
     {
         if (expandable)
         {
-            if (sfxPool.Count < trueMaxSize)
+            if (currentPoolSize < trueMaxSize)
             {
                 SanitiseObject(returningObject);
                 sfxPool.Enqueue(returningObject);
                 currentPoolSize++;
+                Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
             }
             else
             {
                 Destroy(returningObject);
-                Debug.LogWarning("Pool is full, object destroyed");
+                Debug.LogWarning($"Pool is full ({currentPoolSize}/{trueMaxSize}), object destroyed");
             }
         }
         else
         {
-            if (sfxPool.Count < poolSize)
+            if (currentPoolSize < poolSize)
             {
                 SanitiseObject(returningObject);
                 sfxPool.Enqueue(returningObject);
                 currentPoolSize++;
+                Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
             }
             else
             {
                 Destroy(returningObject);
-                Debug.LogWarning("Pool is full, object destroyed");
+                Debug.LogWarning($"Pool is full ({currentPoolSize}/{poolSize}), object destroyed");
             }
         }
     }
@@ -83,12 +86,21 @@ public class SFXPool : MonoBehaviour
     {
         GameObject dequeuedObject = sfxPool.Dequeue();
         currentPoolSize--;
+        Debug.Log($"Removed from pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
         return dequeuedObject;
     }
 
     private void SanitiseObject(GameObject returningObject)
     {
-        returningObject.SetActive(false);
         returningObject.transform.SetParent(transform);
+        returningObject.SetActive(false);
+    }
+
+    public void ExpandPool()
+    {
+        if (expandable && currentPoolSize < trueMaxSize)
+        {
+            FillPool(1);
+        }
     }
 }

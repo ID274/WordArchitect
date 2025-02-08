@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3edb6274a2919d94dab20a9356de2a16, type: 3}
-  m_Name: BlockPlaceSound
+  m_Name: CitySound
   m_EditorClassIdentifier: 
-  priority: 0
-  clip: {fileID: 8300000, guid: 0c091737d877f8842a2259bff075908a, type: 3}
+  priority: 1
+  clip: {fileID: 8300000, guid: ec1c789982ed0374bb8aa09cd8a48a9a, type: 3}
   audioMixerGroup: {fileID: -5159601452150935524, guid: c23ffcadcaa9ee74790c3573f20c6d4b,
     type: 2}
   volume: 1
   pitch: 1
-  loop: 0
-  randomPitch: 1
-  minPitch: 0.7
-  maxPitch: 0.9
-  spatialBlend: 0
+  loop: 1
+  randomPitch: 0
+  minPitch: 0.9
+  maxPitch: 1.1
+  spatialBlend: 1
   minDistance: 1
   maxDistance: 500
   rolloffMode: 0
-  fade: 0
-  fadeTime: 1
+  fade: 1
+  fadeTime: 0.5
