@@ -20,8 +20,8 @@ MonoBehaviour:
   pitch: 1
   loop: 0
   randomPitch: 1
-  minPitch: 0.7
-  maxPitch: 0.9
+  minPitch: 0.5
+  maxPitch: 0.7
   spatialBlend: 0
   minDistance: 1
   maxDistance: 500
