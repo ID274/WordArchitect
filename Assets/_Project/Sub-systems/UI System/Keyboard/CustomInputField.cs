@@ -6,6 +6,8 @@ public class CustomInputField : BaseUIObject
     private TextMeshProUGUI text;
     private string currentInput;
 
+    private SoundCaller soundCaller;
+
     protected override void Awake()
     {
         base.Awake();
@@ -16,6 +18,8 @@ public class CustomInputField : BaseUIObject
             return;
         }
         currentInput = "";
+
+        soundCaller = GetComponent<SoundCaller>();
     }
 
     // SHOULD MAYBE DECOUPLE THE BELOW CODE INTO A SEPARATE INPUT FIELD MANAGER TO FOLLOW SRP
@@ -55,6 +59,19 @@ public class CustomInputField : BaseUIObject
         {
             Debug.Log("Word not found: " + currentInput);
             return false;
+        }
+    }
+
+    public void CallSound()
+    {
+        if (soundCaller != null)
+        {
+            soundCaller.CallSound();
+            Debug.Log("Calling sound");
+        }
+        else
+        {
+            Debug.LogError("Input field's sound caller is null", this);
         }
     }
 }

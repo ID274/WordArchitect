@@ -7,7 +7,7 @@ public class Key : MonoBehaviour, IKey
 {
     [SerializeField] private char key;
 
-    private KeyAnimation keyAnimation;
+    [SerializeField] private KeyAnimation keyAnimation;
 
     private void Awake()
     {
@@ -26,13 +26,19 @@ public class Key : MonoBehaviour, IKey
     {
         if (KeyboardManager.Instance.TakeInput(key))
         {
-            // play key sfx
             // play key animation
-
             if (keyAnimation != null)
             {
                 keyAnimation.PlayAnimation();
             }
+        }
+    }
+
+    private void PlayAnimation()
+    {
+        if (keyAnimation != null)
+        {
+            keyAnimation.PlayAnimation();
         }
     }
 }

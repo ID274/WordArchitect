@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 8670091236222725779}
   - component: {fileID: 799476064522191265}
   - component: {fileID: 576823145659371551}
-  - component: {fileID: 5693895540589873881}
+  - component: {fileID: 2499483840823817284}
   - component: {fileID: 6173839403231848680}
   - component: {fileID: 6344462851804844185}
   m_Layer: 5
@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 85
+  keyAnimation: {fileID: 576823145659371551}
+  soundCaller: {fileID: 2499483840823817284}
 --- !u!114 &576823145659371551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4028daf934d3a4eb53935e2bd72d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5693895540589873881
+--- !u!114 &2499483840823817284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,9 +265,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6580534433956836308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0f6a81b01a99d4c9e1d39673559581, type: 3}
+  m_Script: {fileID: 11500000, guid: 89907b68a86ef744485f54b6d15d8c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundType: 1
+  soundData: {fileID: 11400000, guid: 3769e4fc6aadece4f86e11faea605a38, type: 2}
 --- !u!114 &6173839403231848680
 MonoBehaviour:
   m_ObjectHideFlags: 0
