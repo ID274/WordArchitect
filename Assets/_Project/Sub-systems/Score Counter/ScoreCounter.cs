@@ -15,14 +15,29 @@ public class ScoreCounter : MonoBehaviour
 
     private void Awake()
     {
-        scoreText = GetComponent<TextMeshProUGUI>();
         scoreAnimator = GetComponent<Animator>();
+        scoreText = GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateScore(int score)
     {
-        scoreText.text = score.ToString();
-        scoreAnimator.SetTrigger(animUpdateTrigger);
+        if (scoreText != null)
+        {
+            scoreText.text = score.ToString();
+        }
+        else
+        {
+            Debug.Log($"Score text is null", this);
+        }
+
+        if (scoreAnimator != null)
+        {
+            scoreAnimator.SetTrigger(animUpdateTrigger);
+        }
+        else
+        {
+            Debug.Log($"Score animator is null", this);
+        }
     }
 
     public void ScoreCounterAppear()

@@ -29,7 +29,7 @@ public class EnvironmentManager : MonoBehaviour
     {
         if (disableGround)
         {
-            if (groundDisabled == false && ScoreManager.Instance.score >= disableGroundThreshhold)
+            if (groundDisabled == false && ScoreManager.Instance.Score >= disableGroundThreshhold)
             {
                 groundDisabled = true;
                 groundPlane.SetActive(false);
@@ -38,7 +38,7 @@ public class EnvironmentManager : MonoBehaviour
         }
         if (disableCity)
         {
-            if (cityDisabled == false && ScoreManager.Instance.score >= disableCityThreshhold)
+            if (cityDisabled == false && ScoreManager.Instance.Score >= disableCityThreshhold)
             {
                 cityDisabled = true;
                 city.SetActive(false);
@@ -47,7 +47,7 @@ public class EnvironmentManager : MonoBehaviour
         }
         if (disableSky)
         {
-            if (skyDisabled == false && ScoreManager.Instance.score >= disableSkyThreshhold)
+            if (skyDisabled == false && ScoreManager.Instance.Score >= disableSkyThreshhold)
             {
                 skyDisabled = true;
                 GameObject[] children = new GameObject[sky.transform.childCount];
