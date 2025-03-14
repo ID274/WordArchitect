@@ -52,14 +52,14 @@ public class SFXPool : MonoBehaviour
     {
         if (currentPoolSize < trueMaxSize && expandable)
         {
-            SanitiseObject(returningObject);
+            DeactivateObject(returningObject);
             sfxPool.Enqueue(returningObject);
             currentPoolSize++;
             Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{trueMaxSize}");
         }
         else if (currentPoolSize < poolSize && !expandable)
         {
-            SanitiseObject(returningObject);
+            DeactivateObject(returningObject);
             sfxPool.Enqueue(returningObject);
             currentPoolSize++;
             Debug.Log($"Added to pool. // Pool Size: {currentPoolSize}/{poolSize}");
@@ -79,7 +79,7 @@ public class SFXPool : MonoBehaviour
         return dequeuedObject;
     }
 
-    private void SanitiseObject(GameObject returningObject)
+    private void DeactivateObject(GameObject returningObject)
     {
         returningObject.transform.SetParent(transform);
         returningObject.SetActive(false);

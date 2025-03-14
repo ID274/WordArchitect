@@ -87,15 +87,8 @@ public class KeyboardManager : MonoBehaviour
                 ValueChanged();
                 return true;
             }
-            else
-            {
-                return false;
-            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     public void DisableKeyboard()
@@ -121,6 +114,7 @@ public class KeyboardManager : MonoBehaviour
         Debug.Log("Current input length: " + currentInput.Length);
 
         inputField.ClearInput();
+        inputField.CallSound();
 
         foreach (char c in currentInput)
         {

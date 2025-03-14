@@ -9,7 +9,7 @@ public class KeyboardListener : MonoBehaviour
         // Disable script for platforms where keyboard input is not appropriate
         if (Application.isConsolePlatform || Application.isMobilePlatform)
         {
-            this.enabled = false;
+            enabled = false;
             return;
         }
     }
