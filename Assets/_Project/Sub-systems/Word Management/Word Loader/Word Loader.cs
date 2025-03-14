@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// The following class breaks the open closed principle as it requires manual modification to add new text files (they
-// must be dragged into the inspector). I believe this to be the most suitable solution as WebGL is very restrictive in
-// terms of file handling, and this is the least over-engineered solution.
+// This class allows for adding new text files via the inspector, therefore adhering to the Open/Closed Principle.
 
 public class WordLoader : MonoBehaviour
 {

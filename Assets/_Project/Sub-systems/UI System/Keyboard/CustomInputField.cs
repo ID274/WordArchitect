@@ -22,8 +22,6 @@ public class CustomInputField : BaseUIObject
         soundCaller = GetComponent<SoundCaller>();
     }
 
-    // SHOULD MAYBE DECOUPLE THE BELOW CODE INTO A SEPARATE INPUT FIELD MANAGER TO FOLLOW SRP
-
     public void AddCharacter(char character)
     {
         currentInput += character;

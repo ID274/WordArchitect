@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class ScoreManager : MonoBehaviour
     private ScoreCounter scoreCounter;
 
     private int score = 0;
+
+    public static Action OnScoreChanged;
 
     // Here we use a property to return/change the score, but to also make sure every time it is changed, to call the UpdateScore() method.
     public int Score
@@ -52,7 +55,7 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreCounter.UpdateScore(Score);
+        OnScoreChanged?.Invoke();
     }
 
     public void ResetScore()
