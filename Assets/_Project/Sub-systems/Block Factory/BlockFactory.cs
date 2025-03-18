@@ -51,5 +51,7 @@ public class BlockFactory : MonoBehaviour
         {
             Debug.LogWarning("Shader does not have a color or tint property.");
         }
+
+        // USE A DECORATOR
     }
 }

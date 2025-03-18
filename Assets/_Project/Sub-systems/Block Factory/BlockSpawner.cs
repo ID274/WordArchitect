@@ -15,6 +15,8 @@ public class BlockSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 0.5f;
     private bool onCooldown = false;
 
+    public static Action onBlockSpawn;
+
     private void Awake()
     {
         blockFactory = GetComponent<BlockFactory>();
@@ -26,8 +28,18 @@ public class BlockSpawner : MonoBehaviour
         {
             (GameObject, char, Vector3, Color) blockData = blocksToSpawn.Dequeue();
             SpawnBlock(blockData.Item1, blockData.Item2, blockData.Item4);
-            ScoreManager.Instance.IncrementScore();
+            onBlockSpawn?.Invoke();
         }
+    }
+
+    private void OnEnable()
+    {
+        WordSearchManager.spawnBlock += AddBlockToSpawn;
+    }
+
+    private void OnDisable()
+    {
+        WordSearchManager.spawnBlock -= AddBlockToSpawn;
     }
 
     private IEnumerator SpawnBlockCoroutine()
@@ -58,7 +70,7 @@ public class BlockSpawner : MonoBehaviour
         AddBlockToSpawn(prefab, character, BlockTracker.Instance.nextBlockPosition, color);
     }
 
-    public void AddBlockToSpawn(GameObject prefab, char character, Vector3 position, Color color)
+    private void AddBlockToSpawn(GameObject prefab, char character, Vector3 position, Color color)
     {
         (GameObject, char, Vector3, Color) newBlockData = (prefab, character, position, color);
         blocksToSpawn.Enqueue(newBlockData);

@@ -36,6 +36,16 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        BlockSpawner.onBlockSpawn += IncrementScore;
+    }
+
+    private void OnDisable()
+    {
+        BlockSpawner.onBlockSpawn -= IncrementScore;
+    }
+
     public void AssignScoreCounter(ScoreCounter scoreCounter) // method to enable unit testing of this class
     {
         this.scoreCounter = scoreCounter;

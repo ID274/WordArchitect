@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,8 +12,9 @@ public class WordSearchManager : MonoBehaviour
     private ColourChanger colourChanger;
     private List<string> stringsToType = new List<string>();
 
-    private BlockSpawner blockSpawner;
     private WordLoader wordLoader;
+
+    public static Action<char, Color> spawnBlock;
 
     private void Awake()
     {
@@ -24,8 +26,6 @@ public class WordSearchManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        blockSpawner = FindAnyObjectByType<BlockSpawner>();
 
         wordTrie = new Trie();
         colourChanger = GetComponent<ColourChanger>();
@@ -84,7 +84,7 @@ public class WordSearchManager : MonoBehaviour
 
         foreach (char letter in chars)
         {
-            blockSpawner.AddBlockToSpawn(letter, colorTemp);
+            spawnBlock?.Invoke(letter, colorTemp);
         }
     }
 
