@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class BaseUIObject : MonoBehaviour
 {
-    // base UI class because making SOLID makes my brain LIQUID
-
     [SerializeField] protected UIType uiType;
 
     private float delay = 0.1f;
