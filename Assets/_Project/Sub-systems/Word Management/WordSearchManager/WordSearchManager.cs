@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(ColourChanger))]
-public class WordSearchManager : MonoBehaviour
+public class WordSearchManager : BaseObserverSubject<IBlockObserver>, IBlockObserverSubject
 {
     public static WordSearchManager Instance { get; private set; }
 
@@ -13,8 +13,6 @@ public class WordSearchManager : MonoBehaviour
     private List<string> stringsToType = new List<string>();
 
     private WordLoader wordLoader;
-
-    public static Action<char, Color> spawnBlock;
 
     private void Awake()
     {
@@ -84,7 +82,7 @@ public class WordSearchManager : MonoBehaviour
 
         foreach (char letter in chars)
         {
-            spawnBlock?.Invoke(letter, colorTemp);
+            NotifyObservers(letter, colorTemp);
         }
     }
 
@@ -99,6 +97,24 @@ public class WordSearchManager : MonoBehaviour
         {
             Debug.Log("Word not found in trie");
             return false;
+        }
+    }
+
+    public void AddObserver(IBlockObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void RemoveObserver(IBlockObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    public void NotifyObservers(char character, Color color)
+    {
+        foreach (IBlockObserver observer in observers)
+        {
+            observer.OnBlockSpawn(character, color);
         }
     }
 }

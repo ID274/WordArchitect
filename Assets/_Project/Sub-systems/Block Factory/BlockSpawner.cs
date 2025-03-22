@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(BlockFactory))]
-public class BlockSpawner : MonoBehaviour
+public class BlockSpawner : MonoBehaviour, IBlockObserver
 {
     [SerializeField] private BlockFactory blockFactory;
 
@@ -17,9 +18,46 @@ public class BlockSpawner : MonoBehaviour
 
     public static Action onBlockSpawn;
 
+    private IBlockObserverSubject blockObserverSubject;
+
+    private bool startPassed = false;
+
     private void Awake()
     {
         blockFactory = GetComponent<BlockFactory>();
+    }
+
+    private void Start()
+    {
+        blockObserverSubject = GrabBlockObserverSubject();
+        blockObserverSubject.AddObserver(this);
+        startPassed = true;
+    }
+
+    private void OnEnable()
+    {
+        if (startPassed)
+        {
+            blockObserverSubject.AddObserver(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        blockObserverSubject.RemoveObserver(this);
+    }
+
+    public IBlockObserverSubject GrabBlockObserverSubject()
+    {
+        IBlockObserverSubject baseObserverSubjects = FindObjectOfType<BaseObserverSubject<IBlockObserver>>() as IBlockObserverSubject;
+
+        if (baseObserverSubjects == null)
+        {
+            Debug.LogError("No BaseObserverSubject found.", this);
+            return null;
+        }
+
+        return baseObserverSubjects;
     }
 
     private void FixedUpdate()
@@ -32,14 +70,9 @@ public class BlockSpawner : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public void OnBlockSpawn(char character, Color color) // implemented from IBlockObserver
     {
-        WordSearchManager.spawnBlock += AddBlockToSpawn;
-    }
-
-    private void OnDisable()
-    {
-        WordSearchManager.spawnBlock -= AddBlockToSpawn;
+        AddBlockToSpawn(character, color);
     }
 
     private IEnumerator SpawnBlockCoroutine()

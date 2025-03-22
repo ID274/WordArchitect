@@ -44,17 +44,11 @@ public class BlockFactory : MonoBehaviour
 
     private void SetParticleColor(Material newMat, Material oldMat)
     {
-        if (materialColorDecorator == null)
+        if (materialColorDecorator == null || newMat == null || oldMat == null)
         {
-            Debug.LogWarning("Material color decorator is null.");
             return;
         }
 
-        if (newMat == null || oldMat == null)
-        {
-            Debug.LogWarning("Material is null");
-            return;
-        }
         materialColorDecorator.ApplyColor(newMat, oldMat);
     }
 }
