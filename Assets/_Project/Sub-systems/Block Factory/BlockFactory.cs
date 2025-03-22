@@ -4,6 +4,12 @@ using System.Collections;
 
 public class BlockFactory : MonoBehaviour
 {
+    private IMaterialColorDecorator materialColorDecorator; // Using a decorator pattern to separate color logic from the factory
+
+    private void Awake()
+    {
+        materialColorDecorator = new MaterialColorDecorator();
+    }
     public GameObject CreateLetterBlock(GameObject prefab, char character, Vector3 position, Color color)
     {
         if (prefab == null || character == ' ')
@@ -38,20 +44,17 @@ public class BlockFactory : MonoBehaviour
 
     private void SetParticleColor(Material newMat, Material oldMat)
     {
-        // Check if the shader supports color changes
-        if (newMat.HasProperty("_Color"))
+        if (materialColorDecorator == null)
         {
-            newMat.SetColor("_Color", oldMat.color);
-        }
-        else if (newMat.HasProperty("_TintColor")) // Alternative common property
-        {
-            newMat.SetColor("_TintColor", oldMat.color);
-        }
-        else
-        {
-            Debug.LogWarning("Shader does not have a color or tint property.");
+            Debug.LogWarning("Material color decorator is null.");
+            return;
         }
 
-        // USE A DECORATOR
+        if (newMat == null || oldMat == null)
+        {
+            Debug.LogWarning("Material is null");
+            return;
+        }
+        materialColorDecorator.ApplyColor(newMat, oldMat);
     }
 }

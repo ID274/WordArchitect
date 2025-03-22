@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.id274.editorcreatetextfilepackage": {
+      "version": "https://github.com/ID274/UnityEditorCreateTextFilePackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f4ac46a2e98d0036f5d0972df591b3561a95feb3"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
