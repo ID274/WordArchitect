@@ -36,7 +36,6 @@ public class BlockTracker : MonoBehaviour
 
         GameObject[] tempObjects = new GameObject[amount];
 
-        // Peek and pop {amount} blocks from the temporary stack
         for (int i = 0; i < amount; i++)
         {
             if (tempStack.Count > 0)

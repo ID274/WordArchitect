@@ -70,11 +70,11 @@ public class WordSearchManager : BaseObserverSubject<IBlockObserver>, IBlockObse
     public void WordFound(string word)
     {
         RemoveWord(word);
-        PassWordToSpawner(word);
+        PassWordToObservers(word);
         // do other things like add score, spawn blocks etc.
     }
 
-    private void PassWordToSpawner(string word)
+    private void PassWordToObservers(string word)
     {
         Color colorTemp = colourChanger.ReturnRandomColor();
 

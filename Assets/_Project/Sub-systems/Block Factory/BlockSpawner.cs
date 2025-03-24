@@ -9,9 +9,7 @@ public class BlockSpawner : MonoBehaviour, IBlockObserver
 {
     [SerializeField] private BlockFactory blockFactory;
 
-    [SerializeField] private GameObject prefabDefault;
-
-    Queue<(GameObject, char, Vector3, Color)> blocksToSpawn = new Queue<(GameObject, char, Vector3, Color)>();
+    Queue<(char, Vector3, Color)> blocksToSpawn = new Queue<(char, Vector3, Color)>();
 
     [SerializeField] private float spawnInterval = 0.5f;
     private bool onCooldown = false;
@@ -47,6 +45,46 @@ public class BlockSpawner : MonoBehaviour, IBlockObserver
         blockObserverSubject.RemoveObserver(this);
     }
 
+    private void FixedUpdate()
+    {
+        if (blocksToSpawn.Count > 0 && !onCooldown)
+        {
+            (char, Vector3, Color) blockData = blocksToSpawn.Dequeue();
+            SpawnBlock(blockData.Item1, blockData.Item3);
+            onBlockSpawn?.Invoke();
+        }
+    }
+
+    private IEnumerator SpawnBlockCoroutine()
+    {
+        onCooldown = true;
+        yield return new WaitForSeconds(spawnInterval);
+        onCooldown = false;
+    }
+
+    private void SpawnBlock(char character, Color color)
+    {
+        SpawnBlock(character, BlockTracker.Instance.nextBlockPosition, color);
+    }
+
+    private void SpawnBlock(char character, Vector3 position, Color color)
+    {
+        GameObject newBlock = blockFactory.CreateLetterBlock(character, position, color);
+        StartCoroutine(SpawnBlockCoroutine());
+    }
+
+    public void AddBlockToSpawn(char character, Color color)
+    {
+        AddBlockToSpawn(character, BlockTracker.Instance.nextBlockPosition, color);
+    }
+
+    private void AddBlockToSpawn(char character, Vector3 position, Color color)
+    {
+        (char, Vector3, Color) newBlockData = (character, position, color);
+        blocksToSpawn.Enqueue(newBlockData);
+    }
+
+    //Observer implementation
     public IBlockObserverSubject GrabBlockObserverSubject()
     {
         IBlockObserverSubject baseObserverSubjects = FindObjectOfType<BaseObserverSubject<IBlockObserver>>() as IBlockObserverSubject;
@@ -60,52 +98,8 @@ public class BlockSpawner : MonoBehaviour, IBlockObserver
         return baseObserverSubjects;
     }
 
-    private void FixedUpdate()
-    {
-        if (blocksToSpawn.Count > 0 && !onCooldown)
-        {
-            (GameObject, char, Vector3, Color) blockData = blocksToSpawn.Dequeue();
-            SpawnBlock(blockData.Item1, blockData.Item2, blockData.Item4);
-            onBlockSpawn?.Invoke();
-        }
-    }
-
     public void OnBlockSpawn(char character, Color color) // implemented from IBlockObserver
     {
         AddBlockToSpawn(character, color);
-    }
-
-    private IEnumerator SpawnBlockCoroutine()
-    {
-        onCooldown = true;
-        yield return new WaitForSeconds(spawnInterval);
-        onCooldown = false;
-    }
-
-    private void SpawnBlock(GameObject prefab, char character, Color color)
-    {
-        SpawnBlock(prefab, character, BlockTracker.Instance.nextBlockPosition, color);
-    }
-
-    private void SpawnBlock(GameObject prefab, char character, Vector3 position, Color color)
-    {
-        GameObject newBlock = blockFactory.CreateLetterBlock(prefab, character, position, color);
-        StartCoroutine(SpawnBlockCoroutine());
-    }
-
-    public void AddBlockToSpawn(char character, Color color)
-    {
-        AddBlockToSpawn(prefabDefault, character, BlockTracker.Instance.nextBlockPosition, color);
-    }
-
-    public void AddBlockToSpawn(GameObject prefab, char character, Color color)
-    {
-        AddBlockToSpawn(prefab, character, BlockTracker.Instance.nextBlockPosition, color);
-    }
-
-    private void AddBlockToSpawn(GameObject prefab, char character, Vector3 position, Color color)
-    {
-        (GameObject, char, Vector3, Color) newBlockData = (prefab, character, position, color);
-        blocksToSpawn.Enqueue(newBlockData);
     }
 }

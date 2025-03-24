@@ -5,15 +5,17 @@ using System.Collections;
 public class BlockFactory : MonoBehaviour
 {
     private IMaterialColorDecorator materialColorDecorator; // Using a decorator pattern to separate color logic from the factory
+    [SerializeField] private GameObject prefab;
 
     private void Awake()
     {
         materialColorDecorator = new MaterialColorDecorator();
     }
-    public GameObject CreateLetterBlock(GameObject prefab, char character, Vector3 position, Color color)
+    public GameObject CreateLetterBlock(char character, Vector3 position, Color color)
     {
         if (prefab == null || character == ' ')
         {
+            Debug.LogError($"Prefab or character missing", this);
             return null;
         }
 
