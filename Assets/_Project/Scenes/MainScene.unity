@@ -11927,6 +11927,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 891502040402670459, guid: 0d86bd4980a3bf04c894b4a0e09d8cb5,
         type: 3}
+      propertyPath: maxX
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 891502040402670459, guid: 0d86bd4980a3bf04c894b4a0e09d8cb5,
+        type: 3}
+      propertyPath: minX
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 891502040402670459, guid: 0d86bd4980a3bf04c894b4a0e09d8cb5,
+        type: 3}
       propertyPath: targetCanvas
       value: 
       objectReference: {fileID: 1732202966}
