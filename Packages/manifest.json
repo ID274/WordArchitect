@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.id274.editorcreatetextfilepackage": "https://github.com/ID274/UnityEditorCreateTextFilePackage.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.10.3",
     "com.unity.collab-proxy": "2.6.0",
