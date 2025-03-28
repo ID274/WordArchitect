@@ -10,6 +10,7 @@ Broccoli
 Broccolini
 BrusselsSprout
 BurdockRoot
+ButternutSquash
 Cabbage
 CactusLeaf
 Carrot
@@ -79,8 +80,8 @@ Taro
 Tatsoi
 Turnip
 WaterChestnut
-WaterSpinach
 Watercress
+WaterSpinach
 WaxGourd
 Yam
 YardlongBean
