@@ -5,7 +5,7 @@ using System.Collections;
 public class BlockFactory : MonoBehaviour
 {
     private IMaterialColorDecorator materialColorDecorator; // Using a decorator pattern to separate color logic from the factory
-    [SerializeField] private GameObject prefab;
+    [SerializeField] internal GameObject prefab;
 
     private void Awake()
     {
@@ -13,7 +13,7 @@ public class BlockFactory : MonoBehaviour
     }
     public GameObject CreateLetterBlock(char character, Vector3 position, Color color)
     {
-        if (prefab == null || character == ' ')
+        if (prefab == null || string.IsNullOrEmpty(character.ToString()))
         {
             Debug.LogError($"Prefab or character missing", this);
             return null;
@@ -36,9 +36,9 @@ public class BlockFactory : MonoBehaviour
         element.GetComponent<MeshRenderer>().material = tempMat;
 
         ParticleSystemRenderer particleSystemRenderer = element.GetComponentInChildren<ParticleSystemRenderer>();
-        // Get the current material instance
+        // get the current material instance
         Material particleMat = particleSystemRenderer.material;
-        // Set the particle color to the same as the block
+        // set the particle color to the same as the block
         SetParticleColor(particleMat, tempMat);
 
         return element;
