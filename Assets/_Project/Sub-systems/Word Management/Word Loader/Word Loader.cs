@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 // This class allows for adding new text files via the inspector, therefore adhering to the Open/Closed Principle.
@@ -9,6 +10,8 @@ public class WordLoader : MonoBehaviour
     [SerializeField] private List<TextAsset> wordListFiles = new List<TextAsset>();
 
     private List<string> textFileNames = new List<string>();
+
+    private IFileParser parserStrategy = new NewlineParser();
 
     private void Awake()
     {
@@ -30,6 +33,11 @@ public class WordLoader : MonoBehaviour
         }
     }
 
+    public void LoadParser(IFileParser parserStrategy)
+    {
+        this.parserStrategy = parserStrategy;
+    }
+
     public string[] GetThemeNames()
     {
         if (textFileNames == null || textFileNames.Count == 0)
@@ -41,7 +49,7 @@ public class WordLoader : MonoBehaviour
         return textFileNames.ToArray();
     }
 
-    public void LoadWordList(int index)
+    public void LoadWordList(int index, IFileParser parser)
     {
         if (index < 0 || index >= wordListFiles.Count)
         {
@@ -56,7 +64,7 @@ public class WordLoader : MonoBehaviour
             return;
         }
 
-        string[] words = selectedFile.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
+        string[] words = parser.GetWordsFromFile(selectedFile);
         ProcessWords(words, selectedFile.name);
     }
 
@@ -91,6 +99,6 @@ public class WordLoader : MonoBehaviour
         }
 
         int index = Random.Range(0, wordListFiles.Count);
-        LoadWordList(index);
+        LoadWordList(index, parserStrategy);
     }
 }
