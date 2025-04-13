@@ -8,8 +8,6 @@ using UnityEngine.TestTools;
 
 public class BlockFactoryTests
 {
-    BlockTracker blockTracker;
-
     BlockFactory blockFactory;
     GameObject prefab;
 
@@ -24,18 +22,19 @@ public class BlockFactoryTests
         letterTextObject.transform.parent = prefab.transform;
         particleExplosionObject.transform.parent = prefab.transform;
 
-        particleExplosionObject.AddComponent<ParticleSystemRenderer>();
+        ParticleSystemRenderer partRend = particleExplosionObject.AddComponent<ParticleSystemRenderer>();
+        partRend.material = new Material(Shader.Find("Standard"));
+        partRend.material.color = Color.white;
         letterTextObject.AddComponent<TextMeshPro>();
 
         GameObject factoryObject = new GameObject("BlockFactory");
         blockFactory = factoryObject.AddComponent<BlockFactory>();
 
-        blockFactory.prefab = prefab;
-
         // dependencies
-        blockTracker = new GameObject("BlockTracker").AddComponent<BlockTracker>();
         GameObject nextBlockPosPrefab = new GameObject("NextBlockPosition");
         nextBlockPosPrefab.transform.parent = prefab.transform;
+
+        blockFactory.prefab = prefab;
     }
 
     [UnityTest]
@@ -58,7 +57,8 @@ public class BlockFactoryTests
 
         Assert.AreEqual(position, block.transform.position, "Block position should match the specified position");
 
-        Assert.AreEqual(color, block.GetComponentInChildren<ParticleSystemRenderer>().material.color, "Particle color should match the block color");
+        Assert.AreEqual(color, new Color(1, 0, 0, 1));
+        Assert.AreEqual(color, block.GetComponentInChildren<ParticleSystemRenderer>().sharedMaterial.color, "Particle color should match the block color");
     }
 
     [TearDown]
@@ -66,10 +66,8 @@ public class BlockFactoryTests
     {
         Object.Destroy(prefab);
         Object.Destroy(blockFactory);
-        Object.Destroy(blockTracker);
 
         prefab = null;
         blockFactory = null;
-        blockTracker = null;
     }
 }

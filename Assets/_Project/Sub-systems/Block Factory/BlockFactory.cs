@@ -22,13 +22,13 @@ public class BlockFactory : MonoBehaviour
         GameObject element = Instantiate(prefab, position, Quaternion.identity);
         element.GetComponentInChildren<TextMeshPro>().text = character.ToString();
 
-        if (element != null)
+        if (element != null && BlockTracker.Instance != null)
         {
             BlockTracker.Instance.AddBlock(element);
         }
         else
         {
-            Debug.LogError("Created block is null");
+            Debug.LogWarning("Created block is null or BlockTracker are null");
         }
 
         Material tempMat = element.GetComponent<MeshRenderer>().material;
