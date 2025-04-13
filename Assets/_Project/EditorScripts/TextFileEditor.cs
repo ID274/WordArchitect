@@ -22,7 +22,7 @@ public class TextFileEditor : EditorWindow
         {
             return wordA;
         }
-        private set
+        internal set
         {
             wordA = value;
             wordA = wordA.ToLower();
@@ -35,7 +35,7 @@ public class TextFileEditor : EditorWindow
         {
             return wordB;
         }
-        private set
+        internal set
         {
             wordB = value;
             wordB = wordB.ToLower();
@@ -43,7 +43,7 @@ public class TextFileEditor : EditorWindow
     }
 
     private TextAsset wordFile;
-    private string filePath;
+    internal string filePath;
     [Tooltip("Allow duplicate instances of the word?")] private bool allowDuplicates = false;
 
     [MenuItem("Window/TextFileEditor")]
@@ -63,7 +63,7 @@ public class TextFileEditor : EditorWindow
         Debug.Log($"TextFileEditor disabled.");
     }
 
-    private void SetDefaultValues(bool includeFile)
+    internal void SetDefaultValues(bool includeFile)
     {
         wordA = "";
         wordB = "";
@@ -147,34 +147,41 @@ public class TextFileEditor : EditorWindow
         }
     }
 
-    private void AddWord(bool allowDuplicates, string wordToAdd, TextAsset file)
+
+    // internal method to expose it for unit testing
+    internal void AddWord(bool allowDuplicates, string wordToAdd, TextAsset file)
     {
         if (string.IsNullOrEmpty(wordToAdd) || file == null)
         {
             Debug.LogError("Word or file is null or empty.");
             return;
-        }   
+        }
+        
+        wordToAdd = wordToAdd.ToLower();
 
-        string newText = file.text + "\n" + wordA;
+        string newText = file.text + "\n" + wordToAdd;
         if (allowDuplicates)
         {
             File.WriteAllText(AssetDatabase.GetAssetPath(file), newText);
-            Debug.Log($"Word {wordA} added to the file.");
+            Debug.Log($"Word {wordToAdd} added to the file.");
             return;
         }
 
-        if (!file.text.Contains(wordA))
+        if (!file.text.Contains(wordToAdd))
         {
             File.WriteAllText(AssetDatabase.GetAssetPath(file), newText);
-            Debug.Log($"Word {wordA} added to the file.");
+            Debug.Log($"Word {wordToAdd} added to the file.");
         }
         else
         {
-            Debug.LogWarning($"Word {wordA} already exists in the file and duplicates are disabled.");
+            Debug.LogWarning($"Word {wordToAdd} already exists in the file and duplicates are disabled.");
         }
+
+        // refresh the asset database to reflect changes
+        AssetDatabase.Refresh();
     }
 
-    private void ReplaceWord(bool allowDuplicates, string wordToReplace, string wordToReplaceWith, TextAsset file)
+    internal void ReplaceWord(bool allowDuplicates, string wordToReplace, string wordToReplaceWith, TextAsset file)
     {
         if (string.IsNullOrEmpty(wordToReplace) || string.IsNullOrEmpty(wordToReplaceWith) || file == null)
         {
@@ -200,9 +207,12 @@ public class TextFileEditor : EditorWindow
         {
             Debug.LogWarning($"Word {wordToReplaceWith} already exists in the file and duplicates are disabled.");
         }
+
+        // refresh the asset database to reflect changes
+        AssetDatabase.Refresh();
     }
 
-    private void RemoveWord(string wordToRemove, TextAsset file)
+    internal void RemoveWord(string wordToRemove, TextAsset file)
     {
         if (string.IsNullOrEmpty(wordToRemove) || file == null)
         {
@@ -212,12 +222,18 @@ public class TextFileEditor : EditorWindow
 
         string[] lines = file.text.Split('\n');
         string newText = string.Join("\n", lines.Where(line => !line.Contains(wordToRemove)));
+        newText = string.Join("\n", newText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries));
         File.WriteAllText(AssetDatabase.GetAssetPath(file), newText);
         Debug.Log($"Word {wordToRemove} removed from the file.");
+
+        // refresh the asset database to reflect changes
+        AssetDatabase.Refresh();
     }
 
-    private void SortAlphabetically(TextAsset textFile)
+    internal void SortAlphabetically(TextAsset textFile)
     {
+        wordFile = textFile;
+
         if (wordFile == null)
         {
             Debug.LogError("File is null.");
@@ -229,5 +245,8 @@ public class TextFileEditor : EditorWindow
         string newText = string.Join("\n", lines);
         File.WriteAllText(AssetDatabase.GetAssetPath(wordFile), newText);
         Debug.Log("File sorted alphabetically.");
+
+        // refresh the asset database to reflect changes
+        AssetDatabase.Refresh();
     }
 }
