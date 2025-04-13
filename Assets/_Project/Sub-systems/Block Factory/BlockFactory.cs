@@ -4,7 +4,7 @@ using System.Collections;
 
 public class BlockFactory : MonoBehaviour
 {
-    private IMaterialColorDecorator materialColorDecorator; // Using a decorator pattern to separate color logic from the factory
+    internal IMaterialColorDecorator materialColorDecorator; // Using a decorator pattern to separate color logic from the factory
     [SerializeField] internal GameObject prefab;
 
     private void Awake()
@@ -44,7 +44,7 @@ public class BlockFactory : MonoBehaviour
         return element;
     }
 
-    private void SetParticleColor(Material newMat, Material oldMat)
+    internal void SetParticleColor(Material newMat, Material oldMat)
     {
         if (materialColorDecorator == null || newMat == null || oldMat == null)
         {

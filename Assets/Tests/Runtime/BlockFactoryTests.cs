@@ -9,11 +9,9 @@ using UnityEngine.TestTools;
 public class BlockFactoryTests
 {
     BlockTracker blockTracker;
-    Material particleMaterial;
 
     BlockFactory blockFactory;
     GameObject prefab;
-
 
     [SetUp]
     public void SetUp()
@@ -26,8 +24,7 @@ public class BlockFactoryTests
         letterTextObject.transform.parent = prefab.transform;
         particleExplosionObject.transform.parent = prefab.transform;
 
-        ParticleSystemRenderer partRend = particleExplosionObject.AddComponent<ParticleSystemRenderer>();
-        particleMaterial = partRend.material;
+        particleExplosionObject.AddComponent<ParticleSystemRenderer>();
         letterTextObject.AddComponent<TextMeshPro>();
 
         GameObject factoryObject = new GameObject("BlockFactory");
@@ -54,14 +51,23 @@ public class BlockFactoryTests
         yield return null;
 
         Assert.IsNotNull(block, "Block should not be null");
+
         Assert.AreEqual(character.ToString(), block.GetComponentInChildren<TextMeshPro>().text, "Block text should match the character");
+
         Assert.AreEqual(color, block.GetComponent<MeshRenderer>().material.color, "Block color should match the specified color");
-        Assert.AreEqual(color, particleMaterial.color, "Particle color should match the block color");
+
+        Assert.AreEqual(position, block.transform.position, "Block position should match the specified position");
+
+        Assert.AreEqual(color, block.GetComponentInChildren<ParticleSystemRenderer>().material.color, "Particle color should match the block color");
     }
 
     [TearDown]
     public void TearDown()
     {
+        Object.Destroy(prefab);
+        Object.Destroy(blockFactory);
+        Object.Destroy(blockTracker);
+
         prefab = null;
         blockFactory = null;
         blockTracker = null;

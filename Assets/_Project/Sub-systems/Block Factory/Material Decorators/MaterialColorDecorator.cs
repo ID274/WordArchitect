@@ -15,15 +15,16 @@ public class MaterialColorDecorator : IMaterialColorDecorator
 
         return false;
     }
-    public void ApplyColor(Material newMat, Material oldMat)
+    public void ApplyColor(Material materialToChange, Material materialToUse)
     {
-        if (CanApplyColor(newMat))
+        if (CanApplyColor(materialToChange))
         {
-            newMat.SetColor(colorProperty, oldMat.color);
+            materialToChange.SetColor(colorProperty, materialToUse.color);
+            Debug.Log($"Material color changed to {materialToUse.color}", materialToChange);
         }
         else
         {
-            Debug.LogWarning("Shader does not have a _Color or _TintColor property.", newMat);
+            Debug.LogWarning("Shader does not have a _Color or _TintColor property.", materialToChange);
         }
     }
 }
