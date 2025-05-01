@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum TextFileEditorState
 {
-    None = 0,
+    None = 0, // default to None
     Add,
     Replace,
     Remove
@@ -25,7 +25,7 @@ public class TextFileEditor : EditorWindow
         internal set
         {
             wordA = value;
-            wordA = wordA.ToLower();
+            wordA = wordA.ToLower(); // lowercase the word when setting
         }
     }
     private string wordB = "";
@@ -38,7 +38,7 @@ public class TextFileEditor : EditorWindow
         internal set
         {
             wordB = value;
-            wordB = wordB.ToLower();
+            wordB = wordB.ToLower(); // lowercase the word when setting
         }
     }
 
@@ -63,7 +63,7 @@ public class TextFileEditor : EditorWindow
         Debug.Log($"TextFileEditor disabled.");
     }
 
-    internal void SetDefaultValues(bool includeFile)
+    internal void SetDefaultValues(bool includeFile) // resets to "default" state
     {
         wordA = "";
         wordB = "";
@@ -102,7 +102,7 @@ public class TextFileEditor : EditorWindow
             }
         }
 
-        if (wordFile != null)
+        if (wordFile != null) // check if file is selected
         {
             EditorGUILayout.LabelField("File loaded: " + wordFile.name);
             allowDuplicates = EditorGUILayout.Toggle("Allow duplicates", allowDuplicates);
@@ -140,7 +140,7 @@ public class TextFileEditor : EditorWindow
             }
 
             EditorGUILayout.Space(30);
-            if (GUILayout.Button("Sort alphabetically"))
+            if (GUILayout.Button("Sort alphabetically")) // doesnt need state, can sort whenever
             {
                 SortAlphabetically(wordFile);
             }
