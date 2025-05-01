@@ -5,7 +5,7 @@ using UnityEngine;
 public class MaterialColorDecorator : IMaterialColorDecorator
 {
     private string colorProperty = "_Color";
-    public bool CanApplyColor(Material material)
+    public bool CanApplyColor(Material material) // check if the material has the appropriate color property
     {
         if (material.HasProperty("_Color") || material.HasProperty("_TintColor"))
         {
@@ -15,7 +15,7 @@ public class MaterialColorDecorator : IMaterialColorDecorator
 
         return false;
     }
-    public void ApplyColor(Material materialToChange, Material materialToUse)
+    public void ApplyColor(Material materialToChange, Material materialToUse) // if the material has the appropriate color property, apply the color
     {
         if (CanApplyColor(materialToChange))
         {

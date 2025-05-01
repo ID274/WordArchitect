@@ -9,7 +9,7 @@ public class BlockFactory : MonoBehaviour
 
     private void Awake()
     {
-        materialColorDecorator = new MaterialColorDecorator();
+        materialColorDecorator = new MaterialColorDecorator(); // create a new material color decorator
     }
     public GameObject CreateLetterBlock(char character, Vector3 position, Color color)
     {
@@ -51,6 +51,6 @@ public class BlockFactory : MonoBehaviour
             return;
         }
 
-        materialColorDecorator.ApplyColor(newMat, oldMat);
+        materialColorDecorator.ApplyColor(newMat, oldMat); // use the decorator to apply color if possible
     }
 }

@@ -84,7 +84,7 @@ public class BlockSpawner : MonoBehaviour, IBlockObserver
         blocksToSpawn.Enqueue(newBlockData);
     }
 
-    //Observer implementation
+    // observer implementation
     public IBlockObserverSubject GrabBlockObserverSubject()
     {
         IBlockObserverSubject baseObserverSubjects = FindObjectOfType<BaseObserverSubject<IBlockObserver>>() as IBlockObserverSubject;
