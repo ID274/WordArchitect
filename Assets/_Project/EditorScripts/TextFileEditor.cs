@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
+
 public enum TextFileEditorState
 {
     None = 0, // default to None
@@ -250,3 +252,5 @@ public class TextFileEditor : EditorWindow
         AssetDatabase.Refresh();
     }
 }
+
+#endif

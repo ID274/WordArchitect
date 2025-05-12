@@ -65,7 +65,10 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        OnScoreChanged?.Invoke();
+        if (score > 0)
+        {
+            OnScoreChanged?.Invoke();
+        }
     }
 
     public void ResetScore()
